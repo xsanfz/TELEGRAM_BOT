@@ -2,12 +2,11 @@ from dotenv import load_dotenv
 import os
 import ptbot
 from pytimeparse import parse
+
+
 load_dotenv()
-
-
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TG_CHAT_ID = os.getenv('TG_CHAT_ID')
-bot = ptbot.Bot(TELEGRAM_TOKEN)
 
 
 def render_progressbar(total, iteration, prefix='', suffix='', length=20, fill='█', zfill='░'):
@@ -42,11 +41,15 @@ def choose(chat_id, question):
     bot.send_message(chat_id, message)
 
 
-if __name__ == "__main__":
-
+def main():
+    global bot
     bot = ptbot.Bot(TELEGRAM_TOKEN)
     bot.reply_on_message(wait)
     bot.run_bot()
+
+
+if __name__ == "__main__":
+    main()
 
 
 
