@@ -39,7 +39,7 @@ def choose(bot, chat_id, question):
 def main():
     load_dotenv()
     bot = ptbot.Bot(os.getenv("TELEGRAM_TOKEN"))
-    bot.reply_on_message(partial(wait, bot=bot))
+    bot.reply_on_message(partial(wait, bot))
     bot.run_bot()
 
 
