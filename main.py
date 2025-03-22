@@ -2,14 +2,7 @@ from dotenv import load_dotenv
 import os
 import ptbot
 from pytimeparse import parse
-
-
-def load_env():
-    load_dotenv()
-    return {
-        "TELEGRAM_TOKEN": os.getenv("TELEGRAM_TOKEN"),
-        "TG_CHAT_ID": os.getenv("TG_CHAT_ID"),
-    }
+from functools import partial
 
 
 def render_progressbar(total, iteration, prefix='', suffix='', length=20, fill='█', zfill='░'):
@@ -44,15 +37,9 @@ def choose(bot, chat_id, question):
 
 
 def main():
-    env_var = load_env()
-    bot = ptbot.Bot(env_var["TELEGRAM_TOKEN"])
-
-
-    def wait_wrap(chat_id, question):
-        wait(bot, chat_id, question)
-
-    bot.reply_on_message(wait_wrap)
-
+    load_dotenv()
+    bot = ptbot.Bot(os.getenv("TELEGRAM_TOKEN"))
+    bot.reply_on_message(partial(wait, bot=bot))
     bot.run_bot()
 
 
